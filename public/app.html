@@ -265,6 +265,75 @@ input{
         <div class="topRooms">
           <div>
             <div class="sectionTitle">★ 
+
+
+<div id="randomStrategyBox"></div>
+
+<script>
+
+function renderRandomStrategy(){
+
+const coreStrategies=[
+["高風險・高回報","高壓爆擊戰法"],
+["覺醒倍投流","JP追擊模式"],
+["穩定平推流","免費局強壓"],
+["高速衝分流","爆擊覺醒打法"],
+["連轉倍投流","極限翻倍模式"],
+["覺醒衝刺流","高倍率追擊"],
+["保守慢推流","穩定養分模式"]
+];
+
+const actions=[
+"低倍起手 → 穩定平轉 → 爆分倍率拉高 → 鎖利出場",
+"免費局進場 → 疊高倍率 → 連續追擊 → 高倍收尾",
+"穩定壓分 → 覺醒重壓 → 爆分後快速離場",
+"連轉累積 → 中段倍投 → JP爆擊 → 分批收利",
+"觀察波動 → 高倍切入 → 覺醒追擊 → 鎖利退場",
+"低壓養分 → 中期衝刺 → 爆分倍數提升 → 快速停利"
+];
+
+const risks=[
+"風險極高",
+"高倍率風險",
+"極限倍投風險",
+"高壓爆分風險",
+"JP爆擊風險"
+];
+
+function pick(arr){
+return arr[Math.floor(Math.random()*arr.length)];
+}
+
+const core=pick(coreStrategies);
+const action=pick(actions);
+const risk=pick(risks);
+
+let money = 2000;
+const moneyEl = document.getElementById("moneyInput");
+if(moneyEl && moneyEl.value){
+  money = Number(moneyEl.value)||2000;
+}
+
+let minBet=2,maxBet=6;
+
+if(money>=5000 && money<10000){
+  minBet=2;
+  maxBet=10;
+}
+
+if(money>=10000){
+  minBet=5;
+  maxBet=20;
+}
+
+const bet=(Math.random()*(maxBet-minBet)+minBet).toFixed(2);
+const rounds=Math.floor(Math.random()*151)+100;
+
+const minGoal=500;
+const maxGoal=25000;
+const finalGoal=Math.floor(Math.random()*(maxGoal-minGoal+1))+minGoal;
+
+document.getElementById("randomStrategyBox").innerHTML=`
 <section class="panel" style="margin-top:20px;border:1px solid #ffb84d;background:linear-gradient(180deg,#220000,#080000)">
 <div style="font-size:42px;font-weight:900;color:#ffcf68;margin-bottom:24px">◎ 推薦打法</div>
 
@@ -273,41 +342,41 @@ input{
 <div style="margin-bottom:18px">
 ➤ 核心策略：
 <span style="background:#d1150d;padding:8px 16px;border-radius:10px;color:#fff;font-weight:900">
-高風險・高回報
+${core[0]}
 </span>
 
 <span style="color:#ffcf68;font-weight:900;margin-left:15px">
-高壓爆擊戰法
+${core[1]}
 </span>
 </div>
 
 <div style="margin-bottom:18px">
 ➤ 操作方式：
-低倍起手 → 穩定平轉 → 爆分倍率拉高 → 鎖利出場
+${action}
 </div>
 
 <div style="margin-bottom:18px">
 ➤ 建議投注：
-<span style="color:#ffe15c;font-weight:900">4.00</span>
+<span style="color:#ffe15c;font-weight:900">${bet}</span>
 為最佳投注，搭配
-<span style="color:#ffe15c;font-weight:900">125</span>
+<span style="color:#ffe15c;font-weight:900">${rounds}</span>
 次平轉效果最佳
 </div>
 
 <div style="margin-bottom:18px">
 ➤ 高壓報及：
 <span style="background:#7a4b00;padding:8px 16px;border-radius:10px;color:#ffd76a;font-weight:900">
-高壓爆擊戰法
+${core[1]}
 </span>
 
 <span style="color:#ff3434;font-weight:900;margin-left:15px">
-（高風險・高回報）
+（${core[0]}）
 </span>
 </div>
 
 <div style="margin-bottom:18px">
 此打法
-<span style="color:#ff2d2d;font-weight:900">風險極高</span>
+<span style="color:#ff2d2d;font-weight:900">${risk}</span>
 ，適合追求高倍率爆分的玩家使用，請謹慎操作！
 </div>
 
@@ -319,12 +388,24 @@ input{
 <div>
 ➤ 終極目標：
 預估最高爆分可達
-<span style="color:#ff2d2d;font-size:38px;font-weight:900">21048x</span>
+<span style="color:#ff2d2d;font-size:38px;font-weight:900">${finalGoal}x</span>
 ，掌握節奏，創造極限收益！
 </div>
 
 </div>
-</section>
+</section>`;
+}
+
+const oldStartAnalysis = startAnalysis;
+startAnalysis = function(room){
+  renderRandomStrategy();
+  oldStartAnalysis(room);
+}
+
+renderRandomStrategy();
+</script>
+
+
 AI推薦房號 TOP 3</div>
             <div class="roomsGrid" id="roomCards"></div>
           </div>
@@ -465,6 +546,50 @@ expireCheck();
 })();
 </script>
 
+
+<script>
+(function(){
+const coreStrategies=[
+["高風險・高回報","高壓爆擊戰法"],
+["覺醒倍投流","JP追擊模式"],
+["穩定平推","連轉疊倍打法"],
+["高速衝分","爆擊覺醒流"],
+["免費局強壓","極限翻倍流"]
+];
+
+const actions=[
+"低倍起手 → 穩定平轉 → 爆分倍率拉高 → 鎖利出場",
+"免費局進場 → 疊高倍率 → 連續追擊 → 高倍收尾",
+"穩定壓分 → 觀察波動 → 覺醒時重壓 → 快速離場",
+"連轉累積 → 中段倍投 → JP爆擊 → 分批收利"
+];
+
+const risks=[
+"風險極高",
+"高倍率風險",
+"極限倍投風險",
+"高壓爆分風險"
+];
+
+const goals=[
+"21048x","18500x","32000x","15888x","26800x"
+];
+
+function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
+
+const core=pick(coreStrategies);
+const action=pick(actions);
+const risk=pick(risks);
+const goal=pick(goals);
+
+document.querySelectorAll(".rand-core1").forEach(e=>e.innerText=core[0]);
+document.querySelectorAll(".rand-core2").forEach(e=>e.innerText=core[1]);
+document.querySelectorAll(".rand-action").forEach(e=>e.innerText=action);
+document.querySelectorAll(".rand-risk").forEach(e=>e.innerText=risk);
+document.querySelectorAll(".rand-goal").forEach(e=>e.innerText=goal);
+})();
+</script>
+
 </body>`;
   }
 
@@ -508,6 +633,50 @@ throw new Error("expired");
 }}
 setInterval(expireCheck,1000);
 expireCheck();
+})();
+</script>
+
+
+<script>
+(function(){
+const coreStrategies=[
+["高風險・高回報","高壓爆擊戰法"],
+["覺醒倍投流","JP追擊模式"],
+["穩定平推","連轉疊倍打法"],
+["高速衝分","爆擊覺醒流"],
+["免費局強壓","極限翻倍流"]
+];
+
+const actions=[
+"低倍起手 → 穩定平轉 → 爆分倍率拉高 → 鎖利出場",
+"免費局進場 → 疊高倍率 → 連續追擊 → 高倍收尾",
+"穩定壓分 → 觀察波動 → 覺醒時重壓 → 快速離場",
+"連轉累積 → 中段倍投 → JP爆擊 → 分批收利"
+];
+
+const risks=[
+"風險極高",
+"高倍率風險",
+"極限倍投風險",
+"高壓爆分風險"
+];
+
+const goals=[
+"21048x","18500x","32000x","15888x","26800x"
+];
+
+function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
+
+const core=pick(coreStrategies);
+const action=pick(actions);
+const risk=pick(risks);
+const goal=pick(goals);
+
+document.querySelectorAll(".rand-core1").forEach(e=>e.innerText=core[0]);
+document.querySelectorAll(".rand-core2").forEach(e=>e.innerText=core[1]);
+document.querySelectorAll(".rand-action").forEach(e=>e.innerText=action);
+document.querySelectorAll(".rand-risk").forEach(e=>e.innerText=risk);
+document.querySelectorAll(".rand-goal").forEach(e=>e.innerText=goal);
 })();
 </script>
 
